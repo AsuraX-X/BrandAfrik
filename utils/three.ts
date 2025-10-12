@@ -65,7 +65,7 @@ export const renderSquares = (
 
   for (let index = 0; index < squareNum; index++) {
     const geometry = new PlaneGeometry();
-    const material = new MeshBasicMaterial({ color: 0xffffff }); // Add visible color
+    const material = new MeshBasicMaterial({ color:0x404040 }); // Add visible color
     const square = new Mesh(geometry, material);
 
     square.scale.setScalar((w / h) * 0.015);

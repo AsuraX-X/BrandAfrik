@@ -3,7 +3,6 @@
 import { onHover, renderSquares } from "@/utils/three";
 import { useEffect, useRef } from "react";
 import * as three from "three";
-import { OrbitControls } from "three/examples/jsm/Addons.js";
 
 const Background = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -14,7 +13,7 @@ const Background = () => {
     const w = window.innerWidth;
     const h = window.innerHeight;
 
-    const renderer = new three.WebGLRenderer();
+    const renderer = new three.WebGLRenderer({ alpha: true });
     renderer.setSize(w, h);
     containerRef.current.appendChild(renderer.domElement);
 
@@ -34,10 +33,12 @@ const Background = () => {
 
     renderSquares(squares, scene, camera, w, h);
 
-
-    renderer.domElement.addEventListener("mousemove", (e: MouseEvent) => {
+    const handleMouseMove = (e: MouseEvent) => {
       onHover(e, raycaster, mouse, camera, hoverState, squares, w, h);
-    });
+    };
+
+    // Listen to window instead of canvas
+    window.addEventListener("mousemove", handleMouseMove);
 
     const animate = () => {
       requestAnimationFrame(animate);
@@ -48,14 +49,20 @@ const Background = () => {
 
     // Cleanup
     return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
       renderer.dispose();
       containerRef.current?.removeChild(renderer.domElement);
     };
   }, []);
 
-  return <div className="background fixed" ref={containerRef}>
-    <div className="fixed w-full h-full bg-gradient-to-b from-transparent via-black/97.5 to-black pointer-events-none"/>
-  </div>
+  return (
+    <div
+      className="background fixed inset-0 -z-10 pointer-events-none"
+      ref={containerRef}
+    >
+      <div className="fixed w-full h-full bg-gradient-to-b from-transparent via-black/97.5 to-black pointer-events-none" />
+    </div>
+  );
 };
 
 export default Background;
