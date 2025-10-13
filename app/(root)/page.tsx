@@ -8,7 +8,7 @@ const Home = () => {
     <div>
       <Background />
       <StartAnimation />
-      <section className="flex justify-center pointer-events-none">
+      <section className="flex mt-20 justify-center pointer-events-none">
         <HeroSection />
       </section>
     </div>

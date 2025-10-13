@@ -57,10 +57,10 @@ const Background = () => {
 
   return (
     <div
-      className="background fixed inset-0 -z-10 pointer-events-none"
+      className="background absolute top-0 inset-0 -z-10 pointer-events-none overflow-hidden"
       ref={containerRef}
     >
-      <div className="fixed w-full h-full bg-gradient-to-b from-transparent via-black/97.5 to-black pointer-events-none" />
+      <div className="absolute top-0 w-full h-full bg-gradient-to-b from-transparent via-[#1a1a1a]/97.5 to-[#1a1a1a] pointer-events-none" />
     </div>
   );
 };
