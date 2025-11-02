@@ -1,6 +1,98 @@
 @import "tailwindcss";
 
+/* Add local Blacker Sans Pro font-family from /public/blackerSansPro */
+@font-face {
+  font-family: "Blacker Sans Pro";
+  src: url("/blackerSansPro/BlackerSansPro-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Blacker Sans Pro";
+  src: url("/blackerSansPro/BlackerSansPro-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Blacker Sans Pro";
+  src: url("/blackerSansPro/BlackerSansPro-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Blacker Sans Pro";
+  src: url("/blackerSansPro/BlackerSansPro-Extralight.ttf") format("truetype");
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Blacker Sans Pro";
+  src: url("/blackerSansPro/BlackerSansPro-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Blacker Sans Pro";
+  src: url("/blackerSansPro/BlackerSansPro-Extrabold.ttf") format("truetype");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Blacker Sans Pro";
+  src: url("/blackerSansPro/BlackerSansPro-Black.ttf") format("truetype");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Italic variants */
+@font-face {
+  font-family: "Blacker Sans Pro";
+  src: url("/blackerSansPro/BlackerSansPro-Italic.ttf") format("truetype");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Blacker Sans Pro";
+  src: url("/blackerSansPro/BlackerSansPro-BoldItalic.ttf") format("truetype");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* You can add more weights/italics if needed (Light, Thin, Heavy, etc.) */
+
+html {
+  overflow-y: auto;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scroll-behavior: smooth;
+}
+
+html::-webkit-scrollbar {
+  display: none;
+} /* WebKit */
+
+/* Apply the local font as default. We keep the geist variables for fallback and other usages. */
 body {
   background-color: #1a1a1a;
   color: #ffffff;
+  font-family: "Blacker Sans Pro", var(--font-geist-sans), ui-sans-serif,
+    system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+/* Utility: hide native scrollbars while keeping scrolling functional */
+.hide-scrollbar {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; /* WebKit */
 }

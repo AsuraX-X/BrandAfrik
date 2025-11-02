@@ -2,24 +2,11 @@
 
 import { motion } from "motion/react";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import GetInTouchBtn from "./GetInTouchBtn";
 
 const Header = () => {
-  const [hover, setHover] = useState(false);
-  useEffect(() => {
-    const button = document.getElementById("GET");
 
-    button?.addEventListener("mouseenter", () => setHover(true));
-    button?.addEventListener("mouseleave", () => setHover(false));
-
-    return () => {
-      button?.removeEventListener("mouseenter", () => setHover(true));
-      button?.removeEventListener("mouseleave", () => setHover(false));
-    };
-  }, []);
-
-  const buttonText = "Get in touch";
-  const chars = buttonText.split("");
 
   return (
     <div className="fixed top-0 w-screen z-10 h-15 flex items-center">
@@ -68,33 +55,7 @@ const Header = () => {
         </motion.button>
       </div>
       <div className="flex flex-1 shrink-0 justify-center items-center ">
-        <button id="GET" className="flex gap-2 justify-center items-center">
-          <motion.div animate={{ x: hover ? 98 : 0 }}>
-            <Image
-              src="/GetInTouch.svg"
-              unoptimized
-              alt="get in touch button"
-              width={20}
-              height={20}
-            />
-          </motion.div>
-          <motion.p animate={{ x: hover ? -27 : 0 }}>
-            {chars.map((char, i) => (
-              <motion.span
-                animate={{ opacity: hover ? [1, 0, 1] : 1 }}
-                transition={{
-                  delay: i * 0.05,
-                  duration: 0.2,
-                  repeat: hover ? Infinity : 0,
-                  repeatDelay: hover ? 1 : 0,
-                }}
-                key={i}
-              >
-                {char}
-              </motion.span>
-            ))}
-          </motion.p>
-        </button>
+        <GetInTouchBtn />
       </div>
     </div>
   );

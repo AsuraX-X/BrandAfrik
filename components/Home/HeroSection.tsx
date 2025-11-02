@@ -17,7 +17,7 @@ const HeroSection = () => {
         <motion.p
           initial={{ opacity: 0, y: "100%" }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 2.5, duration: 0.5 }}
+          transition={{ delay: 2.2, duration: 0.5 }}
           className="max-w-80"
         >
           We are mission-driven innovative people committed to building
@@ -27,7 +27,7 @@ const HeroSection = () => {
         <motion.p
           initial={{ opacity: 0, y: "100%" }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 3, duration: 0.5 }}
+          transition={{ delay: 2.3, duration: 0.5 }}
           className="max-w-80"
         >
           At the heart of our work is a belief that the continent's unique

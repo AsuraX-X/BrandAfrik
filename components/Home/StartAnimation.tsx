@@ -44,7 +44,7 @@ const StartAnimation = () => {
         opacity: 0,
       }}
       transition={{ delay: 1.8 }}
-      className="fixed sas top-0 w-full h-full flex items-center justify-center bg-[#1a1a1a] pointer-events-none z-10"
+      className="fixed sas top-0 left-0 w-full h-full flex items-center justify-center bg-[#1a1a1a] pointer-events-none z-10"
     >
       <motion.p
         variants={parent}

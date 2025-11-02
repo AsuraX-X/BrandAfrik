@@ -2,10 +2,12 @@ import {
   Mesh,
   MeshBasicMaterial,
   PerspectiveCamera,
+  Plane,
   PlaneGeometry,
   Raycaster,
   Scene,
   Vector2,
+  Vector3,
 } from "three";
 
 import { animate as anime } from "animejs";
@@ -65,7 +67,7 @@ export const renderSquares = (
 
   for (let index = 0; index < squareNum; index++) {
     const geometry = new PlaneGeometry();
-    const material = new MeshBasicMaterial({ color:0x404040 }); // Add visible color
+    const material = new MeshBasicMaterial({ color: 0x404040 }); // Add visible color
     const square = new Mesh(geometry, material);
 
     square.scale.setScalar((w / h) * 0.015);
@@ -84,11 +86,16 @@ export const renderSquares = (
     square.position.y = row * spacing - gridHeight / 2;
     square.position.z = 0;
 
+    square.userData.originalPosition = {
+      x: square.position.x,
+      y: square.position.y,
+      z: square.position.z,
+    };
+
     squares.push(square);
     scene.add(square);
   }
 };
-
 
 export const onHover = (
   event: MouseEvent,
@@ -204,4 +211,56 @@ export const onHover = (
 
   hoverState.currentlyCloseHovered = foundCloseSquares;
   hoverState.currentlyFarHovered = foundFarSquares;
+};
+
+export const onHover2 = (
+  event: MouseEvent,
+  raycaster: Raycaster,
+  mouse: Vector2,
+  camera: PerspectiveCamera,
+  squares: Mesh[],
+  w: number,
+  h: number
+) => {
+  const mouseWorldPos = new Vector3();
+  const interactionRadius = 2.5; // Size of the circle around cursor
+  const pushStrength = 0.1; // How far boxes get pushed
+  const returnSpeed = 0.008;
+
+  mouse.x = (event.clientX / w) * 2 - 1;
+  mouse.y = -(event.clientY / h) * 2 + 1;
+
+  // Update raycaster
+  raycaster.setFromCamera(mouse, camera);
+
+  // Get mouse position on the Z=0 plane
+  const planeZ = new Plane(new Vector3(0, 0, 1), 0);
+  raycaster.ray.intersectPlane(planeZ, mouseWorldPos);
+
+  squares.forEach((square) => {
+    const originalPos = square.userData.originalPosition;
+
+    // Calculate distance from mouse to square
+    const dx = square.position.x - mouseWorldPos.x;
+    const dy = square.position.y - mouseWorldPos.y;
+    const distance = Math.sqrt(dx * dx + dy * dy);
+
+    if (distance < interactionRadius) {
+      // Calculate push direction (away from mouse)
+      const angle = Math.atan2(dy, dx);
+      const pushDistance = (1 - distance / interactionRadius) * pushStrength;
+
+      // Set target position (pushed away from mouse)
+      const targetX = originalPos.x + Math.cos(angle) * pushDistance;
+      const targetY = originalPos.y + Math.sin(angle) * pushDistance;
+
+      // Smoothly move to target position
+      square.position.x += (targetX - square.position.x) * 0.2;
+      square.position.y += (targetY - square.position.y) * 0.2;
+    } else {
+      // Return to original position
+      square.position.x += (originalPos.x - square.position.x) * returnSpeed;
+      square.position.y += (originalPos.y - square.position.y) * returnSpeed;
+    }
+  });
 };

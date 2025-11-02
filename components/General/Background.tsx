@@ -2,9 +2,15 @@
 
 import { onHover, renderSquares } from "@/utils/three";
 import { useEffect, useRef } from "react";
-import * as three from "three";
+import {
+  PerspectiveCamera,
+  Raycaster,
+  Scene,
+  Vector2,
+  WebGLRenderer,
+} from "three";
 
-const Background = () => {
+const Background = ({ direction }: { direction: string }) => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -13,17 +19,17 @@ const Background = () => {
     const w = window.innerWidth;
     const h = window.innerHeight;
 
-    const renderer = new three.WebGLRenderer({ alpha: true });
+    const renderer = new WebGLRenderer({ alpha: true });
     renderer.setSize(w, h);
     containerRef.current.appendChild(renderer.domElement);
 
     const aspect = w / h;
-    const camera = new three.PerspectiveCamera(75, aspect, 0.1, 1000);
+    const camera = new PerspectiveCamera(75, aspect, 0.1, 1000);
     camera.position.z = 2;
 
-    const scene = new three.Scene();
-    const raycaster = new three.Raycaster();
-    const mouse = new three.Vector2();
+    const scene = new Scene();
+    const raycaster = new Raycaster();
+    const mouse = new Vector2();
 
     const squares: any[] = [];
     const hoverState = {
@@ -37,8 +43,21 @@ const Background = () => {
       onHover(e, raycaster, mouse, camera, hoverState, squares, w, h);
     };
 
-    // Listen to window instead of canvas
+    const handleResize = () => {
+      const newW = window.innerWidth;
+      const newH = window.innerHeight;
+
+      camera.aspect = newW / newH;
+      camera.updateProjectionMatrix();
+
+      renderer.setSize(newW, newH);
+
+      // Re-render squares with new dimensions
+      renderSquares(squares, scene, camera, newW, newH);
+    };
+
     window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("resize", handleResize);
 
     const animate = () => {
       requestAnimationFrame(animate);
@@ -50,6 +69,7 @@ const Background = () => {
     // Cleanup
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("resize", handleResize);
       renderer.dispose();
       containerRef.current?.removeChild(renderer.domElement);
     };
@@ -57,11 +77,13 @@ const Background = () => {
 
   return (
     <div
-      className="background absolute top-0 inset-0 -z-10 pointer-events-none overflow-hidden"
+      className={`background absolute top-0 inset-0 -z-10 ${
+        direction === "t"
+          ? "mask-t-from-[#000000]/40"
+          : "mask-b-from-[#000000]/40"
+      } pointer-events-none overflow-hidden`}
       ref={containerRef}
-    >
-      <div className="absolute top-0 w-full h-full bg-gradient-to-b from-transparent via-[#1a1a1a]/97.5 to-[#1a1a1a] pointer-events-none" />
-    </div>
+    />
   );
 };
 

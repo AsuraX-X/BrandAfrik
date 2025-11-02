@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/Header";
+import Header from "@/components/General/Header";
+import LenisScrollProvider from "@/components/General/LenisProvider";
+import "remixicon/fonts/remixicon.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,9 +28,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased font-blacker`}
       >
-        <Header />
+        <LenisScrollProvider>
+          <Header />
+        </LenisScrollProvider>
         {children}
       </body>
     </html>
