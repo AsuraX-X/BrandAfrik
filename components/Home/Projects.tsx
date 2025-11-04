@@ -10,12 +10,12 @@ const Projects = () => {
 
   return (
     <div>
-      <h1 className="font-bold text-3xl mb-8">Our Projects</h1>
+      <h1 className="font-bold text-3xl mb-16 sm:mb-8">Our Projects</h1>
       <div className="flex flex-col ">
         <motion.div
           onHoverStart={() => setHover(true)}
           onHoverEnd={() => setHover(false)}
-          className="border-b-[#A3A3A3] border-b-1 py-4 flex items-center"
+          className="border-b-[#A3A3A3] border-b-1 py-4 hidden sm:flex items-center"
         >
           <motion.div
             initial={{ width: 0, marginRight: 0 }}
@@ -41,6 +41,15 @@ const Projects = () => {
             </div>
           </div>
         </motion.div>
+        <div className="sm:hidden block">
+          <Image src="/codeIcon.svg" alt="Code Icon" width={100} height={40} />
+          <ProjectList
+            header="Code & Cocktails"
+            subtitle1="Bringing forward-thinking tech professionals together"
+            subtitle2="Brand Identity, Web Design, Web Development"
+            year={2023}
+          />
+        </div>
         <ProjectList
           header="Sandra Scantlebury Foundation"
           subtitle1="Providing people of all ages basic but necessary medical help"

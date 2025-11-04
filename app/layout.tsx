@@ -32,8 +32,8 @@ export default function RootLayout({
       >
         <LenisScrollProvider>
           <Header />
+          {children}
         </LenisScrollProvider>
-        {children}
       </body>
     </html>
   );

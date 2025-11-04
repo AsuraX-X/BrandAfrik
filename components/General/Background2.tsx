@@ -3,6 +3,7 @@
 import { onHover2, renderSquares } from "@/utils/three";
 import { useEffect, useRef } from "react";
 import {
+  Mesh,
   PerspectiveCamera,
   Raycaster,
   Scene,
@@ -14,14 +15,15 @@ const Background2 = () => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!containerRef.current) return;
+    const container = containerRef.current;
+    if (!container) return;
 
     const w = window.innerWidth;
     const h = window.innerHeight;
 
     const renderer = new WebGLRenderer({ alpha: true });
     renderer.setSize(w, h);
-    containerRef.current.appendChild(renderer.domElement);
+    container.appendChild(renderer.domElement);
 
     const aspect = w / h;
     const camera = new PerspectiveCamera(75, aspect, 0.1, 1000);
@@ -31,11 +33,7 @@ const Background2 = () => {
     const raycaster = new Raycaster();
     const mouse = new Vector2();
 
-    const squares: any[] = [];
-    const hoverState = {
-      currentlyCloseHovered: new Set(),
-      currentlyFarHovered: new Set(),
-    };
+    const squares: Mesh[] = [];
 
     renderSquares(squares, scene, camera, w, h);
 
@@ -71,13 +69,20 @@ const Background2 = () => {
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("resize", handleResize);
       renderer.dispose();
-      containerRef.current?.removeChild(renderer.domElement);
+      // use the captured container and dom element to avoid ref changes between render/cleanup
+      try {
+        container.removeChild(renderer.domElement);
+      } catch (e) {
+        console.error(e);
+
+        // ignore if already removed
+      }
     };
   }, []);
 
   return (
     <div
-      className="sticky top-0 inset-0 -z-10 pointer-events-none overflow-hidden mask-radial-from-[#1a1a1a] mask-radial-to-60%"
+      className="sticky top-0 inset-0 -z-10 pointer-events-none  overflow-hidden mask-radial-from-[#1a1a1a] mask-radial-to-60%"
       ref={containerRef}
     ></div>
   );

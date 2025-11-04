@@ -41,24 +41,34 @@ export const renderSquares = (
   // Target square size based on the reference (231 squares for full screen)
   // Calculate reference grid dimensions for 231 squares at reference aspect ratio
   const referenceSquareNum = 231;
+  // Reduce density on small viewports (mobile/tablet). densityFactor is applied to referenceSquareNum.
+  // Adjust these thresholds or factors to taste.
+  const densityFactor = w < 480 ? 0.35 : w < 768 ? 0.55 : w < 1024 ? 0.75 : 1;
+  const referenceSquareNumAdjusted = Math.max(
+    30,
+    Math.round(referenceSquareNum * densityFactor)
+  );
   const referenceAspect = 1920 / 1080; // Full HD aspect ratio
   const referenceGridCols = Math.ceil(
-    Math.sqrt(referenceSquareNum * referenceAspect)
+    Math.sqrt(referenceSquareNumAdjusted * referenceAspect)
   );
-  const referenceGridRows = Math.ceil(referenceSquareNum / referenceGridCols);
+  const referenceGridRows = Math.ceil(
+    referenceSquareNumAdjusted / referenceGridCols
+  );
 
   // Calculate target spacing based on reference
   const referenceVisibleWidth = visibleWidth; // Assume same camera settings
   const targetSpacing = referenceVisibleWidth / (referenceGridCols - 1);
 
   // Calculate grid dimensions for current screen
-  const gridCols = Math.floor(usableWidth / targetSpacing) + 1;
-  const gridRows = Math.floor(usableHeight / targetSpacing) + 1;
+  // Ensure at least 2 columns/rows to avoid division by zero
+  const gridCols = Math.max(2, Math.floor(usableWidth / targetSpacing) + 1);
+  const gridRows = Math.max(2, Math.floor(usableHeight / targetSpacing) + 1);
   const squareNum = gridCols * gridRows;
 
   // Calculate actual spacing
-  const spacingX = usableWidth / (gridCols - 1);
-  const spacingY = usableHeight / (gridRows - 1);
+  const spacingX = gridCols > 1 ? usableWidth / (gridCols - 1) : usableWidth;
+  const spacingY = gridRows > 1 ? usableHeight / (gridRows - 1) : usableHeight;
   const spacing = Math.min(spacingX, spacingY);
 
   console.log(
@@ -66,11 +76,10 @@ export const renderSquares = (
   );
 
   for (let index = 0; index < squareNum; index++) {
-    const geometry = new PlaneGeometry();
+    const geometry = new PlaneGeometry(0.03, 0.03);
     const material = new MeshBasicMaterial({ color: 0x404040 }); // Add visible color
     const square = new Mesh(geometry, material);
 
-    square.scale.setScalar((w / h) * 0.015);
     square.userData.index = index;
     square.userData.scale = { x: square.scale.x, y: square.scale.y };
 

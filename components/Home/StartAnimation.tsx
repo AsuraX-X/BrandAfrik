@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "motion/react";
-import React, { useEffect, useRef } from "react";
 
 const StartAnimation = () => {
   const slogan =
@@ -50,7 +49,7 @@ const StartAnimation = () => {
         variants={parent}
         initial="hidden"
         animate="visible"
-        className="text-2xl"
+        className="text-2xl text-center px-4"
       >
         {words.map((word, i) => (
           <motion.span className="inline-block mr-2" variants={child} key={i}>

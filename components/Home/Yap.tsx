@@ -1,7 +1,12 @@
 "use client";
 
-import { motion, useScroll, useSpring, useTransform } from "motion/react";
-import { useRef } from "react";
+import {
+  motion,
+  useScroll,
+  useSpring,
+  useMotionValueEvent,
+} from "motion/react";
+import { useRef, useState } from "react";
 
 const Yap = () => {
   const text1 =
@@ -14,9 +19,7 @@ const Yap = () => {
   const words2 = text2.split(" ");
   const words3 = text3.split(" ");
 
-  const allWords = words1.concat(words2.concat(words3));
-
-  console.log(allWords);
+  const allWords = words1.concat(words2).concat(words3);
 
   const yapRef = useRef(null);
 
@@ -31,23 +34,42 @@ const Yap = () => {
     mass: 0.5,
   });
 
+  // Use state to hold per-word opacities and update them from the motion
+  // value `p` via a motion event handler. This avoids calling hooks inside
+  // a loop and satisfies the rules-of-hooks.
+  const [opacities, setOpacities] = useState<number[]>(() =>
+    new Array(allWords.length).fill(0)
+  );
+
+  useMotionValueEvent(p, "change", (v: number) => {
+    const next = allWords.map((_, i) => {
+      const start = i / allWords.length;
+      const end = start + 1 / allWords.length;
+
+      const fadeStart = Math.max(0, start - 0.1);
+      const fadeEnd = Math.min(1, end + 0.2);
+
+      if (v <= fadeStart) return 0;
+      if (v >= fadeEnd) return 1;
+      return (v - fadeStart) / (fadeEnd - fadeStart);
+    });
+    setOpacities(next);
+  });
+
   return (
-    <div className="flex flex-col justify-center items-center text-6xl/18 font-bold">
+    <div className="flex flex-col justify-center items-center sm:text-6xl/18 text-3xl font-bold">
       <p className="py-10" ref={yapRef}>
         {allWords.map((word, i) => {
-          const start = i / allWords.length;
-          const end = start + 1 / allWords.length;
+          const opacity = opacities[i];
 
-          // Extend the fade range for smoother transitions
-          const fadeStart = Math.max(0, start - 0.1); // Start fading earlier
-          const fadeEnd = Math.min(1, end + 0.2); // End fading later
-          const opacity = useTransform(p, [fadeStart, fadeEnd], [0, 1]);
+          // Insert paragraph breaks after text1 and text2
+          const insertBreak =
+            i === words1.length - 1 || i === words1.length + words2.length - 1;
 
           return (
             <motion.span key={i} style={{ opacity }}>
               {word}{" "}
-              {(i === words1.length - 1 ||
-                i === words1.length + allWords.length - 1) && (
+              {insertBreak && (
                 <span>
                   <br />
                   <br />

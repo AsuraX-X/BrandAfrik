@@ -9,26 +9,24 @@ import StartAnimation from "@/components/Home/StartAnimation";
 import We from "@/components/Home/We";
 import Why from "@/components/Home/Why";
 import Yap from "@/components/Home/Yap";
-import { motion } from "motion/react";
-import Image from "next/image";
 import React from "react";
 
 const Home = () => {
   return (
     <div>
       <StartAnimation />
-      <section className="flex mt-20 relative justify-center pointer-events-none px-35">
+      <section className="flex relative justify-center pointer-events-none px-6 sm:px-35">
         <Background direction="b" />
 
         <HeroSection />
       </section>
-      <section className="px-35">
+      <section className="sm:px-35 px-6">
         <Yap />
       </section>
       <section className="mt-25">
         <ExpandingContainers />
       </section>
-      <section className="px-35 mt-40">
+      <section className="sm:px-35 px-6 mt-40">
         <Projects />
       </section>
       <section>
@@ -40,8 +38,8 @@ const Home = () => {
       <section>
         <Why />
       </section>
-      <section className="mt-120 flex items-center px-10 justify-between bg-black bg-[url(/bba.svg)] h-[240px] max-w-6xl mx-auto w-full">
-        <p className="text-6xl font-light max-w-2xl">
+      <section className="mt-120 flex flex-col sm:flex-row sm:items-center py-10 sm:py-0 px-4 sm:px-10 justify-between bg-black bg-[url(/bba.svg)] h-[240px] max-w-6xl mx-auto w-full">
+        <p className="sm:text-6xl text-4xl font-light max-w-2xl">
           Ready to turn your idea into a tool for change?
         </p>
         <GetInTouchBtn />

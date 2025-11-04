@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const Why = () => {
   const whys = [
@@ -42,23 +42,47 @@ const Why = () => {
     },
   ];
 
+  // responsive baseTop: use larger top spacing on small screens
+  const [baseTop, setBaseTop] = useState<number>(120);
+  const gap = 72; // px between stacked headers
+
+  useEffect(() => {
+    const calc = () => {
+      // Tailwind 'sm' breakpoint is 640px — consider below that as mobile
+      const isMobile = window.innerWidth < 640;
+      setBaseTop(isMobile ? 200 : 120);
+    };
+
+    // initial
+    calc();
+
+    window.addEventListener("resize", calc);
+    return () => window.removeEventListener("resize", calc);
+  }, []);
+
+  // compute top positions once so we don't calculate inside JSX
+  const whysWithTop = whys.map((item, i) => ({
+    ...item,
+    top: `${baseTop + gap * i}px`,
+  }));
+
   return (
-    <div className="flex gap-4 h-[65rem] text-sm/tight max-w-6xl mx-auto  ">
-      <p className="text-[44px] sticky top-30 h-fit font-bold w-full">
+    <div className="flex flex-col sm:flex-row gap-4 h-[65rem] text-sm/tight max-w-6xl mx-auto  ">
+      <p className="text-[44px] sticky top-20  sm:mb-4 sm:top-30 h-fit mb-20 font-bold w-full">
         Why Choose BrandAfrik?
       </p>
       <div className="flex flex-col gap-20 w-full">
-        {whys.map((item, i) => (
+        {whysWithTop.map((item) => (
           <div
             key={item.title}
-            style={{ top: `${120 + 72 * i}px` }}
-            className={`h-18 w-full sticky flex items-center px-4 ${item.bg}`}
+            style={{ top: item.top }}
+            className={`h-18 w-full sticky flex items-center ${item.bg}`}
           >
-            <h1 className="text-2xl flex gap-2">
+            <h1 className="text-2xl px-4 flex gap-2">
               <i className={item.icon} />
               {item.title}
             </h1>
-            <p className="absolute bg-[#1a1a1a] top-[100%] pt-2 h-20">
+            <p className="absolute bg-[#1a1a1a] px-4 top-[100%] pt-2 h-20">
               {item.desc}
             </p>
           </div>
