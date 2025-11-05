@@ -49,7 +49,7 @@ const Why = () => {
   useEffect(() => {
     const calc = () => {
       // Tailwind 'sm' breakpoint is 640px — consider below that as mobile
-      const isMobile = window.innerWidth < 640;
+      const isMobile = window.innerWidth < 768;
       setBaseTop(isMobile ? 200 : 120);
     };
 
@@ -67,8 +67,8 @@ const Why = () => {
   }));
 
   return (
-    <div className="flex flex-col sm:flex-row gap-4 h-[65rem] text-sm/tight max-w-6xl mx-auto  ">
-      <p className="text-[44px] sticky top-20  sm:mb-4 sm:top-30 h-fit mb-20 font-bold w-full">
+    <div className="flex flex-col md:flex-row gap-4 h-[65rem] text-sm/tight max-w-6xl mx-auto  ">
+      <p className="text-[44px] sticky top-20  md:mb-4 md:top-30 h-fit mb-20 font-bold w-full">
         Why Choose BrandAfrik?
       </p>
       <div className="flex flex-col gap-20 w-full">
@@ -82,7 +82,7 @@ const Why = () => {
               <i className={item.icon} />
               {item.title}
             </h1>
-            <p className="absolute bg-[#1a1a1a] px-4 top-[100%] pt-2 h-20">
+            <p className="absolute bg-[#1a1a1a] px-4 w-full top-[100%] pt-2 h-20">
               {item.desc}
             </p>
           </div>

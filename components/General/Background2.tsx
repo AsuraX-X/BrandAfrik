@@ -41,6 +41,10 @@ const Background2 = () => {
       onHover2(e, raycaster, mouse, camera, squares, w, h);
     };
 
+    // Track whether the mouse listener is currently attached (so we can add/remove on resize)
+    let mouseListenerAttached = false;
+    const isMobile = () => window.innerWidth < 768;
+
     const handleResize = () => {
       const newW = window.innerWidth;
       const newH = window.innerHeight;
@@ -54,8 +58,24 @@ const Background2 = () => {
       renderSquares(squares, scene, camera, newW, newH);
     };
 
-    window.addEventListener("mousemove", handleMouseMove);
-    window.addEventListener("resize", handleResize);
+    // Attach mousemove only when not on mobile
+    if (!isMobile()) {
+      window.addEventListener("mousemove", handleMouseMove);
+      mouseListenerAttached = true;
+    }
+    window.addEventListener("resize", () => {
+      // call original resize handler
+      handleResize();
+
+      const nowMobile = isMobile();
+      if (nowMobile && mouseListenerAttached) {
+        window.removeEventListener("mousemove", handleMouseMove);
+        mouseListenerAttached = false;
+      } else if (!nowMobile && !mouseListenerAttached) {
+        window.addEventListener("mousemove", handleMouseMove);
+        mouseListenerAttached = true;
+      }
+    });
 
     const animate = () => {
       requestAnimationFrame(animate);
@@ -66,8 +86,8 @@ const Background2 = () => {
 
     // Cleanup
     return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-      window.removeEventListener("resize", handleResize);
+  if (mouseListenerAttached) window.removeEventListener("mousemove", handleMouseMove);
+  window.removeEventListener("resize", handleResize);
       renderer.dispose();
       // use the captured container and dom element to avoid ref changes between render/cleanup
       try {
@@ -82,7 +102,7 @@ const Background2 = () => {
 
   return (
     <div
-      className="sticky top-0 inset-0 -z-10 pointer-events-none  overflow-hidden mask-radial-from-[#1a1a1a] mask-radial-to-60%"
+      className="sticky top-0 inset-0 -z-10 pointer-events-none max-h-screen  overflow-hidden mask-radial-from-[#1a1a1a] mask-radial-to-60%"
       ref={containerRef}
     ></div>
   );

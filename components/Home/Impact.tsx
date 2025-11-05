@@ -37,8 +37,8 @@ const Impact = () => {
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-0">
       <div className="flex flex-col justify-center h-[80vh]">
-        <h1 className="text-3xl font-bold mb-30">Our Impact</h1>
-        <div ref={ref} className="flex flex-col sm:flex-row justify-between">
+        <h1 className="text-3xl font-bold mb-20 sm:mb-30">Our Impact</h1>
+        <div ref={ref} className="flex flex-col sm:flex-row gap-12 justify-between">
           <div className="flex flex-1 items-center gap-2">
             <p className="text-6xl font-bold p1">0</p>
             <p className="w-20 text-base/4">projects completed</p>

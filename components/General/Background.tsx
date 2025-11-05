@@ -45,6 +45,10 @@ const Background = ({ direction }: { direction: string }) => {
       onHover(e, raycaster, mouse, camera, hoverState, squares, w, h);
     };
 
+    // Track whether the mouse listener is currently attached (so we can add/remove on resize)
+    let mouseListenerAttached = false;
+    const isMobile = () => window.innerWidth < 768;
+
     const handleResize = () => {
       const newW = window.innerWidth;
       const newH = window.innerHeight;
@@ -58,8 +62,24 @@ const Background = ({ direction }: { direction: string }) => {
       renderSquares(squares, scene, camera, newW, newH);
     };
 
-    window.addEventListener("mousemove", handleMouseMove);
-    window.addEventListener("resize", handleResize);
+    // Attach mousemove only when not on mobile
+    if (!isMobile()) {
+      window.addEventListener("mousemove", handleMouseMove);
+      mouseListenerAttached = true;
+    }
+    window.addEventListener("resize", () => {
+      // call original resize handler
+      handleResize();
+
+      const nowMobile = isMobile();
+      if (nowMobile && mouseListenerAttached) {
+        window.removeEventListener("mousemove", handleMouseMove);
+        mouseListenerAttached = false;
+      } else if (!nowMobile && !mouseListenerAttached) {
+        window.addEventListener("mousemove", handleMouseMove);
+        mouseListenerAttached = true;
+      }
+    });
 
     const animate = () => {
       requestAnimationFrame(animate);
@@ -70,8 +90,8 @@ const Background = ({ direction }: { direction: string }) => {
 
     // Cleanup
     return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-      window.removeEventListener("resize", handleResize);
+  if (mouseListenerAttached) window.removeEventListener("mousemove", handleMouseMove);
+  window.removeEventListener("resize", handleResize);
       renderer.dispose();
       // use captured container to avoid ref changes between render and cleanup
       try {

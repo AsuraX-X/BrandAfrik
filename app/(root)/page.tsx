@@ -38,8 +38,8 @@ const Home = () => {
       <section>
         <Why />
       </section>
-      <section className="mt-120 flex flex-col sm:flex-row sm:items-center py-10 sm:py-0 px-4 sm:px-10 justify-between bg-black bg-[url(/bba.svg)] h-[240px] max-w-6xl mx-auto w-full">
-        <p className="sm:text-6xl text-4xl font-light max-w-2xl">
+      <section className="mt-120 flex flex-col lg:flex-row lg:items-center py-10 lg:py-0 px-4 lg:px-10 justify-between bg-black bg-[url(/bba.svg)] h-[240px] max-w-6xl mx-auto w-full">
+        <p className="lg:text-6xl text-4xl font-light max-w-2xl">
           Ready to turn your idea into a tool for change?
         </p>
         <GetInTouchBtn />

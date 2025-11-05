@@ -19,7 +19,7 @@ const ExpandingContainers = () => {
 
   return (
     <div>
-      <div className="h-screen hidden sm:flex justify-between">
+      <div className="h-screen hidden md:flex justify-between">
         <motion.div
           onHoverStart={() => setHoveredIndex(0)}
           onHoverEnd={() => setHoveredIndex(null)}
@@ -50,9 +50,9 @@ const ExpandingContainers = () => {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0, transition: { delay: 0 } }}
                 transition={{ delay: 0.2 }}
-                className="flex flex-col absolute pointer-events-none"
+                className="flex flex-col absolute pointer-events-none px-4"
               >
-                <p className="max-w-160 mt-10 text-4xl">
+                <p className="max-w-160 mt-10 text-2xl lg:text-4xl">
                   We partner with your team to design and build custom digital
                   solutions that streamline operations and drive results.
                 </p>
@@ -80,7 +80,7 @@ const ExpandingContainers = () => {
           onHoverEnd={() => setHoveredIndex(null)}
           animate={{ width: getWidth(1) }}
           transition={{ duration: 1, type: "spring", ease: "easeInOut" }}
-          className="flex items-center justify-center h-full flex-col bg-[#F2B401]"
+          className="flex items-center justify-center h-full flex-col bg-[#F2B401] relative"
         >
           <motion.div
             animate={{
@@ -105,9 +105,9 @@ const ExpandingContainers = () => {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0, transition: { delay: 0 } }}
                 transition={{ delay: 0.2 }}
-                className="flex flex-col absolute pointer-events-none text-[#353535]"
+                className="flex flex-col absolute p-4 pointer-events-none text-[#353535]"
               >
-                <p className="max-w-160 mt-10 text-4xl">
+                <p className="max-w-160 mt-10 text-2xl lg:text-4xl">
                   Our creative team works hand-in-hand with yours to craft bold,
                   market-ready brands and products.
                 </p>
@@ -162,9 +162,9 @@ const ExpandingContainers = () => {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0, transition: { delay: 0 } }}
                 transition={{ delay: 0.2 }}
-                className="flex flex-col absolute pointer-events-none"
+                className="flex flex-col absolute pointer-events-none px-4"
               >
-                <p className="max-w-160 mt-10 text-4xl">
+                <p className="max-w-160 mt-10 text-2xl lg:text-4xl">
                   We partner with your team to design and build custom digital
                   solutions that streamline operations and drive results.
                 </p>
@@ -188,7 +188,7 @@ const ExpandingContainers = () => {
           </AnimatePresence>
         </motion.div>
       </div>
-      <div className="sm:hidden block">
+      <div className="md:hidden block">
         <div className="flex px-4 py-20 items-center justify-between h-[655px] flex-col bg-[#DB4437]">
           <div className="w-full">
             <Image
