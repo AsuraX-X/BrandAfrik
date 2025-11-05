@@ -90,8 +90,9 @@ const Background = ({ direction }: { direction: string }) => {
 
     // Cleanup
     return () => {
-  if (mouseListenerAttached) window.removeEventListener("mousemove", handleMouseMove);
-  window.removeEventListener("resize", handleResize);
+      if (mouseListenerAttached)
+        window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("resize", handleResize);
       renderer.dispose();
       // use captured container to avoid ref changes between render and cleanup
       try {

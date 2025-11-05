@@ -86,8 +86,9 @@ const Background2 = () => {
 
     // Cleanup
     return () => {
-  if (mouseListenerAttached) window.removeEventListener("mousemove", handleMouseMove);
-  window.removeEventListener("resize", handleResize);
+      if (mouseListenerAttached)
+        window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("resize", handleResize);
       renderer.dispose();
       // use the captured container and dom element to avoid ref changes between render/cleanup
       try {
