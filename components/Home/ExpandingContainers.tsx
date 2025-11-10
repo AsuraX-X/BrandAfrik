@@ -30,8 +30,12 @@ const ExpandingContainers = () => {
     target: ref,
   });
 
-  const scale1 = useTransform(scrollYProgress, [0, 0.5333], [1, 0.9], { ease: easeInOut });
-  const scale2 = useTransform(scrollYProgress, [0.5333, 0.9], [1, 0.9], { ease: easeInOut });
+  const scale1 = useTransform(scrollYProgress, [0, 0.5333], [1, 0.9], {
+    ease: easeInOut,
+  });
+  const scale2 = useTransform(scrollYProgress, [0.5333, 0.9], [1, 0.9], {
+    ease: easeInOut,
+  });
 
   useMotionValueEvent(scrollYProgress, "change", (i) => console.log(i));
 
@@ -239,7 +243,10 @@ const ExpandingContainers = () => {
             </p>
           </div>
         </motion.div>
-        <motion.div style={{scale:scale2}} className="flex sticky top-0 px-4 py-10 items-center text-[#353535] justify-between flex-col bg-[#F2B401]">
+        <motion.div
+          style={{ scale: scale2 }}
+          className="flex sticky top-0 px-4 py-10 items-center text-[#353535] justify-between flex-col bg-[#F2B401]"
+        >
           <div className="w-full">
             <Image
               src="/logoCre.svg"
