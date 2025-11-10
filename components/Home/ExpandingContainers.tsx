@@ -6,6 +6,7 @@ import {
   useMotionValueEvent,
   useScroll,
   useTransform,
+  easeInOut,
 } from "motion/react";
 import Image from "next/image";
 import React, { useRef, useState } from "react";
@@ -29,8 +30,8 @@ const ExpandingContainers = () => {
     target: ref,
   });
 
-  const scale1 = useTransform(scrollYProgress, [0, 0.5333], [1, 0.9]);
-  const scale2 = useTransform(scrollYProgress, [0.5333, 0.9], [1, 0.9]);
+  const scale1 = useTransform(scrollYProgress, [0, 0.5333], [1, 0.9], { ease: easeInOut });
+  const scale2 = useTransform(scrollYProgress, [0.5333, 0.9], [1, 0.9], { ease: easeInOut });
 
   useMotionValueEvent(scrollYProgress, "change", (i) => console.log(i));
 
