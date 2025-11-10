@@ -35,11 +35,11 @@ const Background = ({ direction }: { direction: string }) => {
 
     const squares: Mesh[] = [];
     const hoverState = {
-      currentlyCloseHovered: new Set(),
-      currentlyFarHovered: new Set(),
+      currentlyCloseHovered: new Set<Mesh>(),
+      currentlyFarHovered: new Set<Mesh>(),
     };
 
-    renderSquares(squares, scene, camera, w, h);
+    renderSquares(squares, scene, camera, w);
 
     const handleMouseMove = (e: MouseEvent) => {
       onHover(e, raycaster, mouse, camera, hoverState, squares, w, h);
@@ -59,7 +59,7 @@ const Background = ({ direction }: { direction: string }) => {
       renderer.setSize(newW, newH);
 
       // Re-render squares with new dimensions
-      renderSquares(squares, scene, camera, newW, newH);
+      renderSquares(squares, scene, camera, newW);
     };
 
     // Attach mousemove only when not on mobile

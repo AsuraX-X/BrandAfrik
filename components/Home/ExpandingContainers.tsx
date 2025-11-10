@@ -1,8 +1,14 @@
 "use client";
 
-import { AnimatePresence, motion } from "motion/react";
+import {
+  AnimatePresence,
+  motion,
+  useMotionValueEvent,
+  useScroll,
+  useTransform,
+} from "motion/react";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 
 const ExpandingContainers = () => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
@@ -17,8 +23,19 @@ const ExpandingContainers = () => {
     return 1;
   };
 
+  const ref = useRef<HTMLDivElement>(null);
+
+  const { scrollYProgress } = useScroll({
+    target: ref,
+  });
+
+  const scale1 = useTransform(scrollYProgress, [0, 0.5333], [1, 0.9]);
+  const scale2 = useTransform(scrollYProgress, [0.5333, 0.9], [1, 0.9]);
+
+  useMotionValueEvent(scrollYProgress, "change", (i) => console.log(i));
+
   return (
-    <div>
+    <div className="mt-25">
       <div className="h-screen hidden md:flex justify-between">
         <motion.div
           onHoverStart={() => setHoveredIndex(0)}
@@ -165,22 +182,19 @@ const ExpandingContainers = () => {
                 className="flex flex-col absolute pointer-events-none px-4"
               >
                 <p className="max-w-160 mt-10 text-2xl lg:text-4xl">
-                  We partner with your team to design and build custom digital
-                  solutions that streamline operations and drive results.
+                  At Grow, we empower young people and professionals to build
+                  real-world skills, our way of giving back to the communities
+                  we care about.
                 </p>
                 <p className="max-w-160 mt-5">
-                  Using a collaborative design thinking approach, we craft tools
-                  tailored to your brand; making your business smarter, faster,
-                  and more efficient.
+                  Through our MasterClasses, we teach in-demand tech skills that
+                  open doors, spark ideas, and fuel careers.
                 </p>
                 <div className=" flex max-w-120 mt-10 justify-between">
                   <p>Services</p>
                   <p className="text-base/loose">
-                    Web App Development
-                    <br />
-                    Mobile App Development
-                    <br />
-                    Custom Software Solutions
+                    MasterClasses <br />
+                    IT Training and Support for corporate organizations{" "}
                   </p>
                 </div>
               </motion.div>
@@ -188,8 +202,11 @@ const ExpandingContainers = () => {
           </AnimatePresence>
         </motion.div>
       </div>
-      <div className="md:hidden block">
-        <div className="flex px-4 py-20 items-center justify-between h-[655px] flex-col bg-[#DB4437]">
+      <div ref={ref} className="md:hidden block">
+        <motion.div
+          style={{ scale: scale1 }}
+          className="flex sticky top-0 px-4 py-20 items-center justify-between flex-col bg-[#DB4437]"
+        >
           <div className="w-full">
             <Image
               src="/logoDev.svg"
@@ -220,8 +237,8 @@ const ExpandingContainers = () => {
               Custom Software Solutions
             </p>
           </div>
-        </div>
-        <div className="flex px-4 py-20 items-center text-[#353535] justify-between h-[655px] flex-col bg-[#F2B401]">
+        </motion.div>
+        <motion.div style={{scale:scale2}} className="flex sticky top-0 px-4 py-10 items-center text-[#353535] justify-between flex-col bg-[#F2B401]">
           <div className="w-full">
             <Image
               src="/logoCre.svg"
@@ -253,8 +270,8 @@ const ExpandingContainers = () => {
               Photography and Video Production
             </p>
           </div>
-        </div>
-        <div className="flex px-4 py-20 items-center justify-between h-[655px] flex-col bg-[#109E5A]">
+        </motion.div>
+        <div className="flex sticky top-0 px-4 py-20 items-center justify-between flex-col bg-[#109E5A]">
           <div className="w-full">
             <Image
               src="/logoGrow.svg"

@@ -35,7 +35,7 @@ const Background2 = () => {
 
     const squares: Mesh[] = [];
 
-    renderSquares(squares, scene, camera, w, h);
+    renderSquares(squares, scene, camera, w);
 
     const handleMouseMove = (e: MouseEvent) => {
       onHover2(e, raycaster, mouse, camera, squares, w, h);
@@ -55,7 +55,7 @@ const Background2 = () => {
       renderer.setSize(newW, newH);
 
       // Re-render squares with new dimensions
-      renderSquares(squares, scene, camera, newW, newH);
+      renderSquares(squares, scene, camera, newW);
     };
 
     // Attach mousemove only when not on mobile

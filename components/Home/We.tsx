@@ -1,12 +1,7 @@
 "use client";
 import React, { useRef, useState } from "react";
 import Background2 from "../General/Background2";
-import {
-  motion,
-  AnimatePresence,
-  useMotionValueEvent,
-  useScroll,
-} from "motion/react";
+import { motion, useMotionValueEvent, useScroll } from "motion/react";
 import Image from "next/image";
 
 const We = () => {
@@ -16,17 +11,6 @@ const We = () => {
   const [iY, setIY] = useState("-66.667%");
   const [x, setX] = useState("0");
   const [iX, setIX] = useState("-66.667%");
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const prevIndexRef = useRef(0);
-  const [prevDir, setPrevDir] = useState(1);
-
-  const images = ["/strategize.svg", "/design.svg", "/develop.svg"];
-  const titles = ["Strategize", "Design", "Develop"];
-  const subtitles = [
-    ["Brand Strategy", "Digital Strategy"],
-    ["Brand Design", "Product Design"],
-    ["Websites", "Custom Software"],
-  ];
 
   useMotionValueEvent(scrollYProgress, "change", (i) => {
     // desktop vertical offsets (keep existing behavior)

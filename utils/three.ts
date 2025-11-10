@@ -16,8 +16,7 @@ export const renderSquares = (
   squares: Mesh[],
   scene: Scene,
   camera: PerspectiveCamera,
-  w: number,
-  h: number
+  w: number
 ) => {
   // Clear existing squares
   if (squares.length > 0) {
@@ -52,9 +51,6 @@ export const renderSquares = (
   const referenceGridCols = Math.ceil(
     Math.sqrt(referenceSquareNumAdjusted * referenceAspect)
   );
-  const referenceGridRows = Math.ceil(
-    referenceSquareNumAdjusted / referenceGridCols
-  );
 
   // Calculate target spacing based on reference
   const referenceVisibleWidth = visibleWidth; // Assume same camera settings
@@ -77,7 +73,7 @@ export const renderSquares = (
 
   for (let index = 0; index < squareNum; index++) {
     const geometry = new PlaneGeometry(0.03, 0.03);
-    const material = new MeshBasicMaterial({ color: 0x404040 }); // Add visible color
+    const material = new MeshBasicMaterial({ color: 0xa1a1a1 }); // Add visible color
     const square = new Mesh(geometry, material);
 
     square.userData.index = index;
@@ -112,8 +108,8 @@ export const onHover = (
   mouse: Vector2,
   camera: PerspectiveCamera,
   hoverState: {
-    currentlyCloseHovered: Set<any>;
-    currentlyFarHovered: Set<any>;
+    currentlyCloseHovered: Set<Mesh>;
+    currentlyFarHovered: Set<Mesh>;
   },
   squares: Mesh[],
   w: number,

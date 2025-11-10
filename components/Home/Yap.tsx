@@ -57,7 +57,7 @@ const Yap = () => {
   });
 
   return (
-    <div className="flex flex-col justify-center items-center sm:text-6xl/18 text-3xl font-bold">
+    <div className="flex sm:px-35 px-6 flex-col justify-center items-center sm:text-6xl/18 text-3xl font-bold">
       <p className="py-10" ref={yapRef}>
         {allWords.map((word, i) => {
           const opacity = opacities[i];

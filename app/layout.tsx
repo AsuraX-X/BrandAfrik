@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/General/Header";
 import LenisScrollProvider from "@/components/General/LenisProvider";
 import "remixicon/fonts/remixicon.css";
+import Footer from "@/components/Home/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,6 +34,7 @@ export default function RootLayout({
         <LenisScrollProvider>
           <Header />
           {children}
+          <Footer />
         </LenisScrollProvider>
       </body>
     </html>

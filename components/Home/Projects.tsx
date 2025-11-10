@@ -9,7 +9,7 @@ const Projects = () => {
   const [hover, setHover] = useState(false);
 
   return (
-    <div>
+    <div className="sm:px-35 px-6 mt-40">
       <h1 className="font-bold text-3xl mb-16 sm:mb-8">Our Projects</h1>
       <div className="flex flex-col ">
         <motion.div
