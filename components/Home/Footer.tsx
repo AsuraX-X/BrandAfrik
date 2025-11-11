@@ -14,7 +14,7 @@ const Footer = () => {
       </section>
       <section className="mt-40 relative">
         <Background direction="t" />
-        <div className="h-screen flex items-end">
+        <div className="sm:h-screen h-[60vh] flex items-end">
           <Image
             src={"/ba.svg"}
             alt="Brand Afrik"
@@ -22,7 +22,7 @@ const Footer = () => {
             height={0}
             className="w-full"
           />
-        </div>{" "}
+        </div>
       </section>
     </div>
   );

@@ -67,10 +67,6 @@ export const renderSquares = (
   const spacingY = gridRows > 1 ? usableHeight / (gridRows - 1) : usableHeight;
   const spacing = Math.min(spacingX, spacingY);
 
-  console.log(
-    `Creating ${squareNum} squares (${gridCols} cols × ${gridRows} rows)`
-  );
-
   for (let index = 0; index < squareNum; index++) {
     const geometry = new PlaneGeometry(0.03, 0.03);
     const material = new MeshBasicMaterial({ color: 0xa1a1a1 }); // Add visible color

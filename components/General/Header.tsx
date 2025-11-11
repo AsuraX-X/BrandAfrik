@@ -96,13 +96,24 @@ const Header = () => {
           <GetInTouchBtn />
         </div>
       </div>
-      <div className="sm:hidden flex items-center justify-end p-4">
-        <button
-          onClick={() => setIsOpen(true)}
-          className="text-3xl cursor-pointer"
-        >
-          <i className="ri-menu-5-line" />
-        </button>
+      <div className="sm:hidden p-4">
+        <div className="flex justify-between">
+          <Link href={"/"}>
+            <Image
+              src="/logo.svg"
+              unoptimized
+              alt="brand name"
+              width={82}
+              height={82}
+            />
+          </Link>
+          <button
+            onClick={() => setIsOpen(true)}
+            className="text-3xl cursor-pointer"
+          >
+            <i className="ri-menu-5-line" />
+          </button>
+        </div>
         <AnimatePresence>
           {isOpen && (
             <motion.div

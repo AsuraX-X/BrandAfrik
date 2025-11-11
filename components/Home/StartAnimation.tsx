@@ -6,7 +6,6 @@ const StartAnimation = () => {
   const slogan =
     "Rooted in Africa. Designed for the World. Powered by Innovation";
   const words = slogan.split(" ");
-  console.log(words);
 
   const parent = {
     hidden: {

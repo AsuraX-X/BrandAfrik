@@ -6,7 +6,7 @@ import Background from "../General/Background";
 
 const HeroSection = () => {
   return (
-    <section className="flex relative justify-center pointer-events-none px-6 sm:px-35">
+    <section className="flex relative justify-center px-6 sm:px-35">
       <Background direction="b" />
       <div className="h-screen flex flex-col sm:items-center sm:justify-center justify-end overflow-hidden sm:max-w-270 gap-15 pb-10 sm:gap-6">
         <motion.h1
@@ -39,7 +39,7 @@ const HeroSection = () => {
             power to shape global progress
           </motion.p>
         </div>
-        <div className="sm:hidden block w-full">
+        <div className="sm:hidden w-full">
           <GetInTouchBtn />
         </div>
       </div>

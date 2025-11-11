@@ -38,7 +38,7 @@ const We = () => {
   });
 
   return (
-    <div ref={weRef} className="relative max-w-screen h-[600vh]">
+    <div ref={weRef} className="relative max-w-screen h-[300vh] sm:h-[600vh]">
       <div className="hidden md:flex h-screen sticky top-0 text-8xl justify-center items-center font-bold gap-6">
         <p>We</p>
         <div className="overflow-hidden h-screen">

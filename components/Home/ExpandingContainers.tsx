@@ -37,8 +37,6 @@ const ExpandingContainers = () => {
     ease: easeInOut,
   });
 
-  useMotionValueEvent(scrollYProgress, "change", (i) => console.log(i));
-
   return (
     <div className="mt-25">
       <div className="h-screen hidden md:flex justify-between">

@@ -8,10 +8,6 @@ const ContactForm = ({ onClose }: { onClose: () => void }) => {
   const [interests, setInterests] = useState<string[]>([]);
   const [budget, setBudget] = useState<string>("");
 
-  useEffect(() => {
-    console.log(interests);
-  }, [interests]);
-
   const handleClick = (e: ReactMouseEvent<HTMLButtonElement>) => {
     const val = (e.target as HTMLButtonElement).value;
     if (interests.includes(val)) {
